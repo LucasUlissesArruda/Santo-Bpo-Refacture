@@ -1,0 +1,177 @@
+/* 1. Imports essenciais: Bootstrap e Google Fonts */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2&family=Roboto:wght@300&display=swap");
+
+/* 2. Configuração da sua fonte local (MoonTime) */
+@font-face {
+    font-family: 'MoonTime';
+    /* O Next.js busca direto na pasta /public/fonts */
+    src: url('/fonts/MoonTime-Regular.otf') format('opentype');
+}
+
+/* 3. Estilos Base (Adaptados do seu Tela1.css) */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffff;
+}
+
+/* Navbar */
+.navbar {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.navbar.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+    color: #000 !important;
+    margin-right: 15px;
+}
+
+.nav-link:hover {
+    color: #e6c8a1 !important;
+    text-decoration: none;
+}
+
+/* Seções Gerais */
+.somos-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+    background-color: #fff;
+}
+
+.somos-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.somos-text p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Botões */
+.cta-button {
+    display: inline-block;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Cards de Serviços */
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.card {
+    cursor: pointer;
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    width: 250px;
+    min-height: 181px;
+    border-radius: 20px;
+    transition: 0.3s;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card:hover {
+    background-color: #9D7E52;
+    transform: scale(1.05);
+}
+
+.card h2 {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #555;
+    margin-top: 15px;
+}
+
+.card:hover h2 {
+    color: #fff;
+}
+
+/* Para inverter a cor dos ícones no hover (se forem imagens pretas) */
+.card:hover img {
+    filter: brightness(0) invert(1);
+}
+
+/* Planos */
+.pricing-card {
+    border: 3px solid #9D7E52;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    transition: 0.3s;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pricing-card:hover {
+    box-shadow: 0 0 15px #9D7E52;
+    transform: scale(1.05);
+}
+
+.get_started_btn {
+    background: #9D7E52;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+/* Rodapé */
+footer {
+    background-color: #4F4952;
+    color: white;
+    padding: 40px 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #e6c8a1;
+}
