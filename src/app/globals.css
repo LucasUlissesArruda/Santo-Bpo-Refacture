@@ -1,177 +1,238 @@
-/* 1. Imports essenciais: Bootstrap e Google Fonts */
+/* 1. Reset e Fontes */
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2&family=Roboto:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
-/* 2. Configuração da sua fonte local (MoonTime) */
 @font-face {
     font-family: 'MoonTime';
-    /* O Next.js busca direto na pasta /public/fonts */
     src: url('/fonts/MoonTime-Regular.otf') format('opentype');
 }
 
-/* 3. Estilos Base (Adaptados do seu Tela1.css) */
-body {
+:root {
+    --primary: #9D7E52; /* Dourado Santo BPO */
+    --dark: #1a1a1a;
+    --light: #ffffff;
+    --gray-bg: #f8f9fa;
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #ffff;
+    box-sizing: border-box;
 }
 
-/* Navbar */
-.navbar {
-    transition: background-color 0.3s, box-shadow 0.3s;
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background-color: var(--light);
+    overflow-x: hidden;
 }
 
-.navbar.sticky {
+/* 2. Efeito da Hero (Imagem 4K) */
+.hero-container {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.nav-link {
-    color: #000 !important;
-    margin-right: 15px;
-}
-
-.nav-link:hover {
-    color: #e6c8a1 !important;
-    text-decoration: none;
-}
-
-/* Seções Gerais */
-.somos-section {
+    height: 100vh;
+    z-index: 0;
+    background: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: 40px;
-    padding: 40px 20px;
-    background-color: #fff;
+    justify-content: center;
 }
 
-.somos-text h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+.hero-image {
+    transition: var(--transition);
+    object-fit: cover;
 }
 
-.somos-text p {
-    font-size: 1.2rem;
+/* 3. Camada de Conteúdo (Scroll) */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    background-color: var(--light);
+    margin-top: 100vh;
+    box-shadow: 0 -20px 50px rgba(0,0,0,0.08);
+}
+
+/* 4. Seção Quem Somos (About) */
+.section-padding {
+    padding: 100px 0;
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0;
+    }
+}
+
+.title-display {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--dark);
+}
+
+.text-description {
+    font-size: 1.1rem;
     line-height: 1.8;
     color: #555;
-    margin-bottom: 30px;
+    max-width: 600px;
 }
 
-/* Botões */
-.cta-button {
+/* 5. Utilitários */
+.cta-main {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
     display: inline-block;
-    background-color: #000;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: var(--transition);
+    border: 1px solid var(--dark);
 }
 
-.cta-button:hover {
-    background-color: #333;
-    color: #fff;
+.cta-main:hover {
+    background-color: transparent;
+    color: var(--dark);
+    transform: translateY(-3px);
 }
 
-/* Cards de Serviços */
-.container1 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-    gap: 20px;
+/* --- Navbar: Versão Limpa e Espaçada --- */
+.nav-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 0; 
+  z-index: 9999;
+  transition: all 0.4s ease;
+  background-color: transparent;
 }
 
-.card {
-    cursor: pointer;
-    text-align: center;
-    background-color: #fff;
-    padding: 15px;
-    width: 250px;
-    min-height: 181px;
-    border-radius: 20px;
-    transition: 0.3s;
-    border: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.nav-active {
+  padding: 15px 0;
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.card:hover {
-    background-color: #9D7E52;
-    transform: scale(1.05);
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px; 
+  margin: 0 auto;
+  /* O "espaço" lateral que você quer nas bordas do site */
+  padding: 0 80px; 
 }
 
-.card h2 {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: #555;
-    margin-top: 15px;
+.logo-font {
+  font-family: 'MoonTime', cursive !important;
+  font-size: 4rem !important; 
+  color: #9D7E52 !important;
+  text-decoration: none;
+  line-height: 0.8;
 }
 
-.card:hover h2 {
-    color: #fff;
+.nav-links {
+  display: flex !important; /* Força a exibição já que tiramos o toggle */
+  gap: 50px; 
+  align-items: center;
 }
 
-/* Para inverter a cor dos ícones no hover (se forem imagens pretas) */
-.card:hover img {
-    filter: brightness(0) invert(1);
+.nav-links a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 0.75rem; 
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: 0.3s;
 }
 
-/* Planos */
-.pricing-card {
-    border: 3px solid #9D7E52;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    transition: 0.3s;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+/* O Botão Sólido que você aprovou */
+.nav-cta-solid {
+  background-color: #9D7E52 !important;
+  color: #ffffff !important;
+  padding: 12px 28px !important;
+  border-radius: 50px !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-decoration: none;
+  transition: all 0.3s ease !important;
+  border: none !important;
+  display: inline-block;
 }
 
-.pricing-card:hover {
-    box-shadow: 0 0 15px #9D7E52;
-    transform: scale(1.05);
+.nav-cta-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(157, 126, 82, 0.4);
 }
 
-.get_started_btn {
-    background: #9D7E52;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-    display: inline-block;
+/* Ajuste para telas menores não espremerem a logo */
+@media (max-width: 1100px) {
+  .nav-container { padding: 0 40px; }
+  .nav-links { gap: 30px; }
+  .logo-font { font-size: 3.2rem !important; }
+}
+/* --- Ajustes Finais da Navbar --- */
+
+.nav-logo, .nav-links a {
+  text-decoration: none !important; /* Mata a linha azul/sublinhado de vez */
+  outline: none;
 }
 
-/* Rodapé */
-footer {
-    background-color: #4F4952;
-    color: white;
-    padding: 40px 0;
+.logo-font {
+  font-family: 'MoonTime', cursive !important;
+  font-size: 4rem !important; 
+  color: #9D7E52 !important;
+  line-height: 0.8;
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
 
-footer a {
-    color: white;
-    text-decoration: none;
+/* Efeito sutil na logo ao passar o mouse (opcional, dá um charme) */
+.nav-logo:hover .logo-font {
+  transform: scale(1.02);
 }
 
-footer a:hover {
-    color: #e6c8a1;
+.nav-links {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #1a1a1a !important; /* Cor padrão preta/grafite */
+  font-weight: 600;
+  font-size: 0.75rem; 
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease; /* Faz a troca de cor ser suave */
+  position: relative;
+}
+
+/* --- O HOVER QUE VOCÊ PEDIU --- */
+.nav-links a:hover {
+  color: #9D7E52 !important; /* Troca para o dourado ao passar o mouse */
+  opacity: 1;
+}
+
+/* Estilo do Botão Sólido (Garantindo que não mude a cor de fundo no hover se não quiser) */
+.nav-cta-solid {
+  background-color: #9D7E52 !important;
+  color: #ffffff !important;
+  padding: 12px 28px !important;
+  border-radius: 50px !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  border: none !important;
+}
+
+.nav-cta-solid:hover {
+  background-color: #866a43 !important; /* Um dourado levemente mais escuro ao clicar */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(157, 126, 82, 0.3);
 }

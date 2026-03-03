@@ -4,48 +4,30 @@ import { useState, useEffect } from 'react';
 import About from '../components/About';
 
 export default function Home() {
-  // 1. Definição da Imagem 4K
-  const imgConfig = {
-    width: 3840,
-    height: 2160,
-    ratio: 3840 / 2160
-  };
+  const imgConfig = { width: 3840, height: 2160, ratio: 3840 / 2160 };
+  const [style, setStyle] = useState({ width: 0, height: 0, top: 0, left: 0, opacity: 0 });
 
-  // 2. Estado Visual
-  const [style, setStyle] = useState({
-    width: 0,
-    height: 0,
-    top: 0,
-    left: 0,
-    opacity: 0
-  });
-
-  // 3. Cálculo Matemático
   useEffect(() => {
     const calculateLayout = () => {
       const screenW = window.innerWidth;
       const screenH = window.innerHeight;
       const screenRatio = screenW / screenH;
-
       let renderW, renderH;
 
+      // Responsividade: Em mobile a imagem ocupa 95% da largura, em desktop 85% da altura
       if (screenRatio > imgConfig.ratio) {
         renderH = screenH * 0.85; 
         renderW = renderH * imgConfig.ratio;
       } else {
-        renderW = screenW * 0.95; 
+        renderW = screenW * 0.92; 
         renderH = renderW / imgConfig.ratio;
       }
-
-      const posX = (screenW - renderW) / 2;
-      // Offset de 80px para descer a imagem e liberar espaço pro Menu
-      const posY = ((screenH - renderH) / 2) + 80;
 
       setStyle({
         width: renderW,
         height: renderH,
-        left: posX,
-        top: posY,
+        left: (screenW - renderW) / 2,
+        top: ((screenH - renderH) / 2) + 40, // Offset menor para mobile
         opacity: 1
       });
     };
@@ -56,20 +38,13 @@ export default function Home() {
   }, []);
 
   return (
-    <main style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
-      
-      {/* --- CAMADA 1: A FOTO --- */}
-      <div style={{ 
-        position: 'fixed', 
-        top: 0, left: 0, width: '100%', height: '100vh', 
-        zIndex: 0,
-        // Fundo branco com leve cinza embaixo para dar profundidade
-        background: 'linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%)' 
-      }}>
-        
+    <main>
+      {/* CAMADA 1: HERO FIXED */}
+      <div className="hero-container">
         <img 
           src="/img/fotoannie.jpg" 
           alt="Destaque Santo BPO"
+          className="hero-image"
           style={{
             position: 'absolute',
             width: `${style.width}px`,
@@ -77,39 +52,25 @@ export default function Home() {
             top: `${style.top}px`, 
             left: `${style.left}px`,
             opacity: style.opacity,
-            transition: 'opacity 0.8s ease-out',
-            boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.15)', // Sombra suave
-            borderRadius: '12px',
-            zIndex: 1
+            borderRadius: '20px',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.1)'
           }}
         />
-        
       </div>
 
-      {/* --- CAMADA 2: CONTEÚDO --- */}
-      <div style={{ 
-        position: 'relative',
-        marginTop: '100vh', 
-        zIndex: 10,
-        backgroundColor: '#ffffff',
-        // Sombra invertida no topo para separar o conteudo da foto
-        boxShadow: '0 -10px 40px rgba(0,0,0,0.05)', 
-      }}>
+      {/* CAMADA 2: CONTEÚDO SCROLLABLE */}
+      <div className="content-wrapper">
+        <div className="container">
+          <div className="row justify-content-center py-4">
+            <div style={{ width: '50px', height: '4px', background: '#ddd', borderRadius: '2px' }} />
+          </div>
+          <About />
+        </div>
         
-        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px' }}>
-          <div style={{ width: '60px', height: '6px', backgroundColor: '#e5e5e5', borderRadius: '10px' }}></div>
-        </div>
-
-        <About />
-
-        <div style={{ 
-          height: '400px', 
-          backgroundColor: '#f9f9f9', 
-          display: 'flex', justifyContent: 'center', alignItems: 'center' 
-        }}>
-          <p style={{ color: '#aaa', letterSpacing: '1px' }}>CONTINUA...</p>
-        </div>
-
+        {/* Placeholder para próximas seções */}
+        <section className="section-padding text-center" style={{ background: '#fcfcfc' }}>
+            <h2 className="title-display" style={{ color: '#ccc', fontSize: '1.5rem' }}>Nossos Serviços em breve...</h2>
+        </section>
       </div>
     </main>
   );
